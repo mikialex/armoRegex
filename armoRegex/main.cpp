@@ -9,14 +9,9 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+#include "regexParser/parser.hpp"
 
-//regex parse 结果
-enum regexParseResult{
-    REGEX_PARSE_OK,
-    REGEX_PARSE_EXPECT_VALUE,
-    REGEX_PARSE_INVALID_VALUE,
-};
+using namespace std;
 
 class AutomataNode;
 
@@ -56,16 +51,10 @@ public:
 };
 
 
-class RegexContext{
-public:
-    string regex; //正则文本内容
-    string currentP;//当前解析位置
-};
 
-regexParseResult regexParseNode(RegexContext);
 
 class Regex{
-    
+public:
     regexNFA NFA ;//nfa
     bool test(string &s);//测试字符串是否匹配
 };
@@ -75,11 +64,10 @@ int main(int argc, const char * argv[]) {
     
     string testRex="(a|b)*abb";
     
-    int *a=new int(100);
     
-    Regex *testRegex = new Regex(testRex);
-    
-    cout<<testRegex->test("aababababb")<<endl;
+//    Regex *testRegex = new Regex(testRex);
+//    
+//    cout<<testRegex->test("aababababb")<<endl;
     
     
     std::cout << "Hello, World!\n";

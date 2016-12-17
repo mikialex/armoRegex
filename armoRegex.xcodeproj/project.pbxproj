@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8EEE18A61E04433C00B40344 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18A51E04433C00B40344 /* main.cpp */; };
-		8EEE18B11E0446DA00B40344 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18AF1E0446DA00B40344 /* parser.cpp */; };
-		8EEE18B41E0535CB00B40344 /* automata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18B21E0535CB00B40344 /* automata.cpp */; };
+		8EEE18C11E05644A00B40344 /* automata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18BF1E05644A00B40344 /* automata.cpp */; };
+		8EEE18C51E05645400B40344 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18C31E05645400B40344 /* parser.cpp */; };
+		8EEE18C81E0564BE00B40344 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18C71E0564BE00B40344 /* test.cpp */; };
+		8EEE18CC1E0566FB00B40344 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18CA1E0566FB00B40344 /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,10 +29,13 @@
 /* Begin PBXFileReference section */
 		8EEE18A21E04433C00B40344 /* armoRegex */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = armoRegex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EEE18A51E04433C00B40344 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		8EEE18AF1E0446DA00B40344 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
-		8EEE18B01E0446DA00B40344 /* parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parser.hpp; sourceTree = "<group>"; };
-		8EEE18B21E0535CB00B40344 /* automata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = automata.cpp; sourceTree = "<group>"; };
-		8EEE18B31E0535CB00B40344 /* automata.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = automata.hpp; sourceTree = "<group>"; };
+		8EEE18BF1E05644A00B40344 /* automata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = automata.cpp; sourceTree = "<group>"; };
+		8EEE18C01E05644A00B40344 /* automata.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = automata.hpp; sourceTree = "<group>"; };
+		8EEE18C31E05645400B40344 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		8EEE18C41E05645400B40344 /* parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parser.hpp; sourceTree = "<group>"; };
+		8EEE18C71E0564BE00B40344 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		8EEE18CA1E0566FB00B40344 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test.cpp; path = test/test.cpp; sourceTree = "<group>"; };
+		8EEE18CB1E0566FB00B40344 /* test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = test.hpp; path = test/test.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,36 +69,40 @@
 			isa = PBXGroup;
 			children = (
 				8EEE18A51E04433C00B40344 /* main.cpp */,
-				8EEE18AF1E0446DA00B40344 /* parser.cpp */,
-				8EEE18B21E0535CB00B40344 /* automata.cpp */,
-				8EEE18B31E0535CB00B40344 /* automata.hpp */,
-				8EEE18B01E0446DA00B40344 /* parser.hpp */,
-				8EEE18AE1E04454B00B40344 /* infrastructure */,
-				8EEE18AD1E04451400B40344 /* regexParser */,
-				8EEE18AC1E0444C700B40344 /* test */,
+				8EEE18C91E0564CF00B40344 /* test */,
+				8EEE18BE1E05644A00B40344 /* automata */,
+				8EEE18C21E05645400B40344 /* regexParser */,
 			);
 			path = armoRegex;
 			sourceTree = "<group>";
 		};
-		8EEE18AC1E0444C700B40344 /* test */ = {
+		8EEE18BE1E05644A00B40344 /* automata */ = {
 			isa = PBXGroup;
 			children = (
+				8EEE18BF1E05644A00B40344 /* automata.cpp */,
+				8EEE18C71E0564BE00B40344 /* test.cpp */,
+				8EEE18C01E05644A00B40344 /* automata.hpp */,
 			);
-			name = test;
+			path = automata;
 			sourceTree = "<group>";
 		};
-		8EEE18AD1E04451400B40344 /* regexParser */ = {
+		8EEE18C21E05645400B40344 /* regexParser */ = {
 			isa = PBXGroup;
 			children = (
+				8EEE18C31E05645400B40344 /* parser.cpp */,
+				8EEE18C41E05645400B40344 /* parser.hpp */,
 			);
 			name = regexParser;
+			path = automata/regexParser;
 			sourceTree = "<group>";
 		};
-		8EEE18AE1E04454B00B40344 /* infrastructure */ = {
+		8EEE18C91E0564CF00B40344 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				8EEE18CA1E0566FB00B40344 /* test.cpp */,
+				8EEE18CB1E0566FB00B40344 /* test.hpp */,
 			);
-			name = infrastructure;
+			name = test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,9 +162,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EEE18B11E0446DA00B40344 /* parser.cpp in Sources */,
-				8EEE18B41E0535CB00B40344 /* automata.cpp in Sources */,
 				8EEE18A61E04433C00B40344 /* main.cpp in Sources */,
+				8EEE18C81E0564BE00B40344 /* test.cpp in Sources */,
+				8EEE18C51E05645400B40344 /* parser.cpp in Sources */,
+				8EEE18CC1E0566FB00B40344 /* test.cpp in Sources */,
+				8EEE18C11E05644A00B40344 /* automata.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
