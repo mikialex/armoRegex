@@ -15,6 +15,17 @@
 
 using namespace std;
 
+////<regex> => <expr> <regex-tail>
+////<regex-tail> => "|" <expr>  |  <e>
+////
+////<expr> => <factor> <expr-tail>
+////<expr-tail> => <factor> <expr-tail>  |  <e>
+////
+////<factor> => <term> <factor-tail>
+////<factor-tail> => "*" <factor-tail>  |  <e>
+////
+////<term> => char  |  "(" <regex> ")"
+
 //regex parse 结果
 enum regexParseResult{
     REGEX_PARSE_OK,
@@ -22,11 +33,15 @@ enum regexParseResult{
     REGEX_PARSE_INVALID_VALUE,
 };
 
+//
+
+
 enum regexType{
-    REGEX_CHAR,//单个字符
-    REGEX_UNION,//并
-    REGEX_CLOSURE,//*
-    REGEX_GROUP,//括号
+    REGEX_INVAILD,
+    REGEX_CHAR,//
+    REGEX_TERM,//
+    REGEX_FACTOR,//
+    REGEX_MIDEXPER,//
     REGEX_EXPER//regex表达式
 };
 
@@ -34,25 +49,32 @@ enum regexType{
 //regex节点
 class regexNode{
 public:
-    string name;//名称
-    vector<regexNode> objectNodes;//对象节点，存放对象成员
-    vector<regexNode> arrayNodes;//数组节点，存放数组成员
-    string s; //字符串节点，存放字符串
-    double n;//数值节点，存放节点数值
+    char ch;
+    regexNode* term;
     regexType type;//节点类型
 };
 
 class RegexContext{
 public:
     string regex; //正则文本内容
-    string currentP;//当前解析位置
+    string::iterator currentP;//当前解析位置
+    
+    regexParseResult match();
 };
 
 
-regexParseResult regexParseNode(RegexContext);//解析regex node
+//void regexParseWhitespace(RegexContext &c);//正则表达式 空白如何处理？？
+void regexParse(RegexContext &c);
 
 
-regexParseResult regexParse(regexNode &rootNode,const string &regexRawString);
+regexParseResult regexParseTerm(RegexContext &c,regexNode &node);
+regexParseResult regexParseChar(RegexContext &c,regexNode &node);//解析一位字符
+regexParseResult regexParseRegex(RegexContext &c,regexNode &node);//解析regex
+
+regexParseResult regexParseNode(RegexContext &c,regexNode &node);//解析regex node
+
+
+regexParseResult regexParse(regexNode &rootNode,const string &regexRawString);//解析正则文本
 
 
 
