@@ -70,6 +70,6 @@ int main(int argc, const char * argv[]) {
 //    cout<<testRegex->test("aababababb")<<endl;
     
     
-    std::cout << "Hello, World!\n";
+    std::cout <<asciiTable[0];
     return 0;
 }

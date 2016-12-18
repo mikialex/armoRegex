@@ -26,6 +26,8 @@ using namespace std;
 ////
 ////<term> => char  |  "(" <regex> ")"
 
+const char asciiTable[2]={'a','b'};
+
 //regex parse 结果
 enum regexParseResult{
     REGEX_PARSE_OK,
@@ -33,16 +35,22 @@ enum regexParseResult{
     REGEX_PARSE_INVALID_VALUE,
 };
 
-//
-
 
 enum regexType{
     REGEX_INVAILD,
+    
     REGEX_CHAR,//
+    
     REGEX_TERM,//
+    
     REGEX_FACTOR,//
-    REGEX_MIDEXPER,//
-    REGEX_EXPER//regex表达式
+    REGEX_FACTOR_TAIL,//
+    
+    REGEX_EXPER_TAIL,//
+    REGEX_EXPER,//
+    
+    REGEX_REGEX_TAIL,//
+    REGEX_REGEX//regex表达式
 };
 
 
