@@ -28,6 +28,10 @@ using namespace std;
 
 const char asciiTable[2]={'a','b'};
 
+enum charType{
+    
+};
+
 //regex parse 结果
 enum regexParseResult{
     REGEX_PARSE_OK,
@@ -58,7 +62,8 @@ enum regexType{
 class regexNode{
 public:
     char ch;
-    regexNode* term;
+    regexNode* subNodeLeft;//左子节点
+    regexNode* subNodeRight;//右子节点
     regexType type;//节点类型
 };
 
@@ -75,11 +80,15 @@ public:
 void regexParse(RegexContext &c);
 
 
-regexParseResult regexParseTerm(RegexContext &c,regexNode &node);
-regexParseResult regexParseChar(RegexContext &c,regexNode &node);//解析一位字符
-regexParseResult regexParseRegex(RegexContext &c,regexNode &node);//解析regex
+regexParseResult regexParseTerm(RegexContext &c,regexNode &v);
+regexParseResult regexParseFactorTail(RegexContext &c,regexNode &v);
+regexParseResult regexParseFactor(RegexContext &c,regexNode &v);
+regexParseResult regexParseExprTail(RegexContext &c,regexNode &v);
+regexParseResult regexParseExpr(RegexContext &c,regexNode &v);
+regexParseResult regexParseRegexTail(RegexContext &c,regexNode &v);
+regexParseResult regexParseRegex(RegexContext &c,regexNode &v);
 
-regexParseResult regexParseNode(RegexContext &c,regexNode &node);//解析regex node
+regexParseResult regexParseNode(RegexContext &c,regexNode &node);
 
 
 regexParseResult regexParse(regexNode &rootNode,const string &regexRawString);//解析正则文本

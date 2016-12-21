@@ -19,132 +19,195 @@
 ////
 ////<term> => char  |  "(" <regex> ")"
 
-//char lookAhead;
-//void match(char ch);
-//
-//void regexParseTerm(){
-//    switch (lookAhead) {
-//        case 'a':
-//            match('a');
-//            break;
-//        case 'b':
-//            match('b');
-//            break;
-//        case '(':
-//            match('(');
-////            regexParseRegex();
-//            break;
-//        default:
-//            break;  //返回错误
-//    }
-//}
-//
-//void regexParseFactorTail(){
-//    switch (lookAhead) {
-//        case '*':
-//            match('*');
-//            regexParseFactorTail();
-//            break;
-//        default:
-//            break;  // <e>
-//    }
-//}
-//
-//void regexParseFactor(){
-//    switch (lookAhead) {
-//        case '(':
-//            regexParseTerm();
-//            regexParseFactorTail();
-//            break;
-//        case 'a':
-//            regexParseTerm();
-//            regexParseFactorTail();
-//            break;
-//        case 'b':
-//            regexParseTerm();
-//            regexParseFactorTail();
-//            break;
-//        case '\0':
-//            return;
-//            break;
-//        default:
-//            break;  //返回错误
-//    }
-//}
-//
-//void regexParseExprTail(){
-//    switch (lookAhead) {
-//        case '(':
-//            regexParseFactor();
-//            regexParseExprTail();
-//            break;
-//        case 'a':
-//            regexParseFactor();
-//            regexParseExprTail();
-//            break;
-//        case 'b':
-//            regexParseFactor();
-//            regexParseExprTail();
-//            break;
-//        default :
-//            return;
-//            break; // <e>
-//    }
-//}
-//
-//void regexParseExpr(){
-//    switch (lookAhead) {
-//        case '(':
-//            regexParseFactor();
-//            regexParseExprTail();
-//            break;
-//        case 'a':
-//            regexParseFactor();
-//            regexParseExprTail();
-//            break;
-//        case 'b':
-//            regexParseFactor();
-//            regexParseExprTail();
-//            break;
-//            
-//        default:
-//            break;  //返回错误
-//    }
-//};
-//
-//void regexParseRegexTail(){
-//    switch (lookAhead) {
-//        case '|':
-//            match('|');
-//            regexParseExpr();
-//            regexParseRegexTail();
-//            break;
-//        default :
-//            return;
-//            break; // <e>
-//    }
-//};
-//
-//
-//void regexParseRegex(){
-//    switch (lookAhead) {
-//        case '(':
-//            regexParseExpr();
-//            regexParseRegexTail();
-//            break;
-//        case 'a':
-//            regexParseExpr();
-//            regexParseRegexTail();
-//            break;
-//        case 'b':
-//            regexParseExpr();
-//            regexParseRegexTail();
-//            break;
-//            
-//        default:
-//            break;  //返回错误
-//    }
-//}
+
+regexParseResult regexParseTerm(RegexContext &c,regexNode &v){
+    regexParseResult ret;
+    regexNode chr;
+    chr.type=REGEX_CHAR;
+    switch (*c.currentP) {
+        case 'a':
+            c.currentP++;
+            v.ch='a';
+            v.subNodeLeft=&chr;
+            ret=REGEX_PARSE_OK;
+            break;
+        case 'b':
+            c.currentP++;
+            v.ch='b';
+            v.subNodeLeft=&chr;
+            ret=REGEX_PARSE_OK;
+            break;
+        case '(':
+            c.currentP++;
+            regexNode regex;
+            regex.type=REGEX_REGEX;
+            ret=regexParseRegex(c,regex);
+            break;
+        default:
+            ret=REGEX_PARSE_INVALID_VALUE;
+            break;  //返回错误
+    }
+    return ret;
+}
+
+regexParseResult regexParseFactorTail(RegexContext &c,regexNode &v){
+    regexParseResult ret;
+    regexNode factorTail;
+    factorTail.type=REGEX_FACTOR_TAIL;
+    switch (*c.currentP) {
+        case '*':
+            c.currentP++;
+            v.subNodeRight=&factorTail;
+            ret=regexParseFactorTail(c,factorTail);
+            break;
+        default:
+            ret=REGEX_PARSE_OK;
+            break;  // <e>
+    }
+    return ret;
+}
+
+regexParseResult regexParseFactor(RegexContext &c,regexNode &v){
+    regexParseResult ret;
+    regexNode term;
+    regexNode factorTail;
+    term.type=REGEX_TERM;
+    factorTail.type=REGEX_FACTOR_TAIL;
+    
+    v.subNodeLeft=&term;
+    v.subNodeRight=&factorTail;
+    switch (*c.currentP) {
+        case '(':
+            ret=regexParseTerm(c,term);
+            ret=regexParseFactorTail(c,factorTail);
+            break;
+        case 'a':
+            ret=regexParseTerm(c,term);
+            ret=regexParseFactorTail(c,factorTail);
+            break;
+        case 'b':
+            ret=regexParseTerm(c,term);
+            ret=regexParseFactorTail(c,factorTail);
+            break;
+            
+        default:
+            ret=REGEX_PARSE_INVALID_VALUE;
+            break;  //返回错误
+    }
+    return ret;
+}
+
+regexParseResult regexParseExprTail(RegexContext &c,regexNode &v){
+    regexParseResult ret;
+    regexNode exprTail;
+    regexNode factor;
+    factor.type=REGEX_FACTOR;
+    exprTail.type=REGEX_EXPER_TAIL;
+    
+    v.subNodeLeft=&factor;
+    v.subNodeRight=&exprTail;
+    switch (*c.currentP) {
+        case '(':
+            ret=regexParseFactor(c,factor);
+            ret=regexParseExprTail(c,exprTail);
+            break;
+        case 'a':
+            ret=regexParseFactor(c,factor);
+            ret=regexParseExprTail(c,exprTail);
+            break;
+        case 'b':
+            ret=regexParseFactor(c,factor);
+            ret=regexParseExprTail(c,exprTail);
+            break;
+        default :
+            ret=REGEX_PARSE_OK;
+            break; // <e>
+    }
+    return ret;
+}
+
+regexParseResult regexParseExpr(RegexContext &c,regexNode &v){
+    regexParseResult ret;
+    regexNode factor;
+    regexNode exprTail;
+    factor.type=REGEX_FACTOR;
+    exprTail.type=REGEX_EXPER_TAIL;
+    
+    v.subNodeLeft=&factor;
+    v.subNodeRight=&exprTail;
+    switch (*c.currentP) {
+        case '(':
+            ret=regexParseFactor(c,factor);
+            ret=regexParseExprTail(c,exprTail);
+            break;
+        case 'a':
+            ret=regexParseFactor(c,factor);
+            ret=regexParseExprTail(c,exprTail);
+            break;
+        case 'b':
+            ret=regexParseFactor(c,factor);
+            ret=regexParseExprTail(c,exprTail);
+            break;
+            
+        default:
+            ret=REGEX_PARSE_INVALID_VALUE;
+            break;  //返回错误
+    }
+    return ret;
+};
+
+regexParseResult regexParseRegexTail(RegexContext &c,regexNode &v){
+    regexParseResult ret;
+    regexNode expr;
+    regexNode regexTail;
+    expr.type=REGEX_EXPER;
+    regexTail.type=REGEX_REGEX_TAIL;
+    switch (*c.currentP) {
+        case '|':
+            c.currentP++;
+            v.subNodeRight=&expr;
+            ret=regexParseExpr(c,expr);
+            break;
+        default :
+            ret=REGEX_PARSE_OK;
+            break; // <e>
+    }
+    return ret;
+};
+
+
+regexParseResult regexParseRegex(RegexContext &c,regexNode &v){
+    
+    regexParseResult ret=REGEX_PARSE_INVALID_VALUE;
+    v.type=REGEX_REGEX;
+    
+    regexNode expr;
+    regexNode regexTail;
+    expr.type=REGEX_EXPER;
+    regexTail.type=REGEX_REGEX_TAIL;
+    
+    v.subNodeLeft=&expr;
+    v.subNodeRight=&regexTail;
+    switch (*c.currentP) {
+        case '(':
+            ret=regexParseExpr(c,expr);
+            ret=regexParseRegexTail(c,regexTail);
+            break;
+        case 'a':
+            ret=regexParseExpr(c,expr);
+            ret=regexParseRegexTail(c,regexTail);
+            break;
+        case 'b':
+            ret=regexParseExpr(c,expr);
+            ret=regexParseRegexTail(c,regexTail);
+            break;
+            
+        default:
+            ret=REGEX_PARSE_INVALID_VALUE;
+            break;  //返回错误
+    }
+    return ret;
+}
 
 
 
