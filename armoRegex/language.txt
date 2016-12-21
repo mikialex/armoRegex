@@ -1,0 +1,10 @@
+<regex> => <expr> <regex-tail>
+<regex-tail> => "|" <expr>  |  <e>
+
+<expr> => <factor> <expr-tail>
+<expr-tail> => <factor> <expr-tail>  |  <e>
+
+<factor> => <term> <factor-tail>
+<factor-tail> => "*" <factor-tail>  |  <e>
+
+<term> => char  |  "(" <regex> ")"
