@@ -10,31 +10,36 @@
 
 
 regexNFA regexNFA::closureNFA(){
-    regexNFA a;
-    return a;
+    regexNFA closure;
+    closure.startNode.trans.push_back(AutomataNodeTrans('\0',closure.endNode));
+    closure.startNode.trans.push_back(AutomataNodeTrans('\0',startNode));
+    endNode.trans.push_back(AutomataNodeTrans('\0',startNode));
+    endNode.trans.push_back(AutomataNodeTrans('\0',closure.endNode));
+    return closure;
 }
 
 regexNFA regexNFA::connect(regexNFA &theOtherRegexNFA){
-    regexNFA a;
-    return a;
+    regexNFA chain;
+    chain.startNode=startNode;
+    endNode.trans.push_back(AutomataNodeTrans('\0',theOtherRegexNFA.startNode));
+    chain.endNode=theOtherRegexNFA.endNode;
+    return chain;
 }
 
 regexNFA regexNFA::unite(regexNFA &theOtherRegexNFA){
-    regexNFA a;
-    return a;
+    regexNFA unite;
+    unite.startNode.trans.push_back(AutomataNodeTrans('\0',theOtherRegexNFA.startNode));
+    unite.startNode.trans.push_back(AutomataNodeTrans('\0',startNode));
+    theOtherRegexNFA.endNode.trans.push_back(AutomataNodeTrans('\0',unite.endNode));
+    endNode.trans.push_back(AutomataNodeTrans('\0',unite.endNode));
+    return unite;
 }
-
-
-regexNFA regexNFA::createSingleCharNFA(char chr){//识别单个字符的nfa
-    regexNFA nfa;
-    return nfa;
-};
 
 regexNFA regexNFA::convert(regexNode &v,regexNFA &nfaAll){
     
     switch (v.type) {
         case REGEX_CHAR:
-            nfaAll=createSingleCharNFA(v.ch);
+            nfaAll=regexNFA(v.ch);
             break;
         case REGEX_TERM:
             if(v.subNodeLeft==nullptr){

@@ -17,38 +17,54 @@ using namespace std;
 
 
 class AutomataNode;
+class AutomataNodeTrans;
+
+//NFA DFA 状态转换图 节点
+class AutomataNode{
+public:
+    AutomataNode(){
+        
+    }
+    vector<AutomataNodeTrans> trans; //转换关系
+    //    int id;  //节点编号
+};
 
 
 // NFA DFA 状态转换图 转换
 class AutomataNodeTrans{
 public:
+    AutomataNodeTrans(){
+        aimNode=nullptr;
+        ch='\0';
+    }
+    AutomataNodeTrans(char chr,AutomataNode &mataNode){
+        aimNode=&mataNode;
+        ch=chr;
+    }
     char ch;  //接受的字符
     AutomataNode* aimNode;  //目标节点
 };
 
-
-//NFA DFA 状态转换图 节点
-class AutomataNode{
-public:
-    vector<AutomataNodeTrans> trans; //转换关系
-    //    int id;  //节点编号
-};
 
 
 
 //NFA
 class regexNFA{
 public:
+    regexNFA(){
+    }
+    regexNFA(char singleChar){
+        startNode.trans.push_back(AutomataNodeTrans(singleChar,endNode));
+    }
     vector<AutomataNode> lookUpTable    ; //nfa所有节点，用于加速节点查找，所有NFA合并完成以后再运行生成
     
-    AutomataNode start;  //nfa开始节点
-    AutomataNode end;   //nfa结束节点
+    AutomataNode startNode;  //nfa开始节点
+    AutomataNode endNode;   //nfa结束节点
     
     regexNFA connect(regexNFA &theOtherRegexNFA);//连接
     regexNFA unite(regexNFA &theOtherRegexNFA); //并
     regexNFA closureNFA(); //自身的闭包
     
-    regexNFA createSingleCharNFA(char chr);//识别单个字符的nfa
     regexNFA convert(regexNode &v,regexNFA &nfaAll);//从regex tree 转换成NFA v作为根节点
     
     vector<AutomataNode> move(vector<AutomataNode> Nodes,char ch);//转换函数 返回一堆节点下，读入字符后，到达的所有节点

@@ -33,9 +33,21 @@ int main(int argc, const char * argv[]) {
     context.regex=testRex;
     context.currentP=context.regex.begin();
     
+//    regexNode *root=new regexNode();
+//    regexParseRegex(context,*root);
+//    delete root;root=nullptr;
     
-    regexNode *root=new regexNode();
-    regexParseRegex(context,*root);
+    AutomataNode a1;
+    {
+        AutomataNode a2;
+    AutomataNodeTrans b('a',a2);
+    
+    a1.trans.push_back(b);
+    }
+    
+//    for(int i=0;i<=10000;i++){
+//        int a=int(1);
+//    }
     
     std::cout <<asciiTable[0];
     return 0;
