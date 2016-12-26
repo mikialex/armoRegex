@@ -62,14 +62,21 @@ public:
 
 int main(int argc, const char * argv[]) {
     
-    string testRex="(a|b)*abb";
+    string testRex="a|b";
     
     
 //    Regex *testRegex = new Regex(testRex);
 //    
 //    cout<<testRegex->test("aababababb")<<endl;
+    RegexContext context;
+    context.regex=testRex;
+    context.currentP=context.regex.begin();
     
     
+    regexNode *root=new regexNode();
+    regexParseRegex(context,*root);
+    delete root;
+
     std::cout <<asciiTable[0];
     return 0;
 }

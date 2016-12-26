@@ -61,6 +61,16 @@ enum regexType{
 //regex节点
 class regexNode{
 public:
+    regexNode(){
+        ch='\0';
+        subNodeLeft=nullptr;
+        subNodeRight=nullptr;
+        type=REGEX_INVAILD;
+    }
+    ~regexNode(){
+        delete subNodeLeft;
+        delete subNodeRight;
+    }
     char ch;
     regexNode* subNodeLeft;//左子节点
     regexNode* subNodeRight;//右子节点
