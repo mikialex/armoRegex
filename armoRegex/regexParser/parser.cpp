@@ -43,10 +43,12 @@ regexParseResult regexParseTerm(RegexContext &c,regexNode &v){
             c.currentP++;
             regexNode *regex=new regexNode();
             (*regex).type=REGEX_REGEX;
+            v.subNodeRight=regex;
             ret=regexParseRegex(c,*regex);
             break;
             }
         default:
+            delete chr;
             ret=REGEX_PARSE_INVALID_VALUE;
             break;  //返回错误
     }
@@ -162,9 +164,7 @@ regexParseResult regexParseExpr(RegexContext &c,regexNode &v){
 regexParseResult regexParseRegexTail(RegexContext &c,regexNode &v){
     regexParseResult ret;
     regexNode *expr =new regexNode();
-    regexNode *regexTail=new regexNode();
     (*expr).type=REGEX_EXPER;
-    (*regexTail).type=REGEX_REGEX_TAIL;
     switch (*c.currentP) {
         case '|':
             c.currentP++;
@@ -172,6 +172,7 @@ regexParseResult regexParseRegexTail(RegexContext &c,regexNode &v){
             ret=regexParseExpr(c,*expr);
             break;
         default :
+            delete expr;
             ret=REGEX_PARSE_OK;
             break; // <e>
     }
@@ -211,5 +212,4 @@ regexParseResult regexParseRegex(RegexContext &c,regexNode &v){
     }
     return ret;
 }
-
 

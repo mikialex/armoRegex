@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8EEE18A61E04433C00B40344 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18A51E04433C00B40344 /* main.cpp */; };
 		8EEE18C11E05644A00B40344 /* automata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18BF1E05644A00B40344 /* automata.cpp */; };
-		8EEE18C81E0564BE00B40344 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18C71E0564BE00B40344 /* test.cpp */; };
 		8EEE18CC1E0566FB00B40344 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18CA1E0566FB00B40344 /* test.cpp */; };
 		8EEE18D01E0567F200B40344 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE18CE1E0567F200B40344 /* parser.cpp */; };
 /* End PBXBuildFile section */
@@ -31,7 +30,6 @@
 		8EEE18A51E04433C00B40344 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8EEE18BF1E05644A00B40344 /* automata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = automata.cpp; sourceTree = "<group>"; };
 		8EEE18C01E05644A00B40344 /* automata.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = automata.hpp; sourceTree = "<group>"; };
-		8EEE18C71E0564BE00B40344 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		8EEE18CA1E0566FB00B40344 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test.cpp; path = test/test.cpp; sourceTree = "<group>"; };
 		8EEE18CB1E0566FB00B40344 /* test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = test.hpp; path = test/test.hpp; sourceTree = "<group>"; };
 		8EEE18CE1E0567F200B40344 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				8EEE18BF1E05644A00B40344 /* automata.cpp */,
-				8EEE18C71E0564BE00B40344 /* test.cpp */,
 				8EEE18C01E05644A00B40344 /* automata.hpp */,
 			);
 			path = automata;
@@ -163,7 +160,6 @@
 			files = (
 				8EEE18D01E0567F200B40344 /* parser.cpp in Sources */,
 				8EEE18A61E04433C00B40344 /* main.cpp in Sources */,
-				8EEE18C81E0564BE00B40344 /* test.cpp in Sources */,
 				8EEE18CC1E0566FB00B40344 /* test.cpp in Sources */,
 				8EEE18C11E05644A00B40344 /* automata.cpp in Sources */,
 			);
@@ -292,6 +288,7 @@
 				8EEE18AB1E04433C00B40344 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
